@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FutureSelf AI | Your Friendly 30-Year Life & Wealth Companion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+<style>
+  :root {
+    --bg-dark: #080d1a;
+    --panel-bg: rgba(15, 23, 42, 0.85);
+    --card-bg: rgba(30, 41, 59, 0.55);
+    --border: rgba(255, 255, 255, 0.08);
+    --border-accent: rgba(0, 245, 212, 0.35);
+    --accent-cyan: #00f5d4;
+    --accent-blue: #00bbf9;
+    --accent-purple: #7b2cbf;
+    --accent-gold: #ffb703;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --gradient-btn: linear-gradient(135deg, #00f5d4 0%, #00bbf9 100%);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif; }
+
+  body {
+    background: var(--bg-dark);
+    background-image: 
+      radial-gradient(ellipse at 10% 0%, rgba(0, 245, 212, 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 90% 100%, rgba(123, 44, 191, 0.18) 0%, transparent 60%),
+      radial-gradient(ellipse at 50% 50%, rgba(0, 187, 249, 0.08) 0%, transparent 70%);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  /* Sleek scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: rgba(8, 13, 26, 0.8); }
+  ::-webkit-scrollbar-thumb { background: rgba(0, 245, 212, 0.3); border-radius: 4px; }
+
+  /* Navbar & Step Tracker */
+  navbar {
+    background: rgba(11, 17, 32, 0.9);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo { display: flex; align-items: center; gap: 0.8rem; }
+
+  .logo-icon {
+    width: 44px; height: 44px; border-radius: 14px;
+    background: var(--gradient-btn); display: flex; align-items: center; justify-content: center;
+    color: #080d1a; font-weight: 800; box-shadow: 0 0 20px rgba(0, 245, 212, 0.35);
+  }
+
+  .logo-text {
+    font-size: 1.35rem; font-weight: 800; letter-spacing: -0.03em;
+    background: linear-gradient(90deg, #ffffff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  .steps-tracker { display: flex; gap: 0.8rem; align-items: center; }
+
+  .step-pill {
+    display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.9rem;
+    border-radius: 20px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border);
+    font-size: 0.82rem; color: var(--text-muted); font-weight: 600; cursor: pointer; transition: all 0.2s;
+  }
+
+  .step-pill.active {
+    background: rgba(0, 245, 212, 0.12); border-color: var(--accent-cyan);
+    color: var(--accent-cyan); box-shadow: 0 0 15px rgba(0, 245, 212, 0.2);
+  }
+
+  .step-num {
+    width: 20px; height: 20px; border-radius: 50%; background: rgba(255, 255, 255, 0.1);
+    display: flex; align-items: center; justify-content: center; font-size: 0.72rem;
+  }
+
+  .step-pill.active .step-num { background: var(--accent-cyan); color: #080d1a; font-weight: 800; }
+
+  /* Main Container */
+  .container { max-width: 1280px; width: 100%; margin: 2rem auto; padding: 0 1.5rem; flex: 1; }
+
+  /* Wizard Card Screens */
+  .wizard-card {
+    background: var(--panel-bg); border: 1px solid var(--border); border-radius: 28px;
+    padding: 2.2rem; backdrop-filter: blur(20px); box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+    display: none; flex-direction: column; gap: 1.8rem; animation: slideUp 0.35s ease-out;
+  }
+
+  .wizard-card.active { display: flex; }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-header-row {
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+  }
+
+  .card-header-title {
+    font-size: 1.75rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 0.8rem;
+  }
+
+  .card-subtitle { font-size: 0.95rem; color: var(--text-muted); margin-top: 0.2rem; }
+
+  /* Interactive Tip Button & Collapsible Drawer */
+  .btn-tip-toggle {
+    background: rgba(0, 245, 212, 0.1); border: 1px solid var(--border-accent);
+    color: var(--accent-cyan); font-size: 0.82rem; font-weight: 700; padding: 0.45rem 1rem;
+    border-radius: 20px; cursor: pointer; display: flex; align-items: center; gap: 0.4rem;
+    transition: all 0.2s;
+  }
+
+  .btn-tip-toggle:hover {
+    background: rgba(0, 245, 212, 0.2); transform: translateY(-1px);
+    box-shadow: 0 0 15px rgba(0, 245, 212, 0.25);
+  }
+
+  .collapsible-tip {
+    display: none; background: rgba(0, 245, 212, 0.05); border: 1px dashed var(--border-accent);
+    border-radius: 16px; padding: 1.1rem 1.4rem; font-size: 0.88rem; color: #cbd5e1;
+    line-height: 1.5; animation: fadeIn 0.25s ease-out;
+  }
+
+  .collapsible-tip.open { display: block; }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  /* Hover Info Tooltip Icon */
+  .tooltip-trigger {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 18px; height: 18px; border-radius: 50%; background: rgba(255, 255, 255, 0.1);
+    color: var(--accent-cyan); font-size: 0.72rem; cursor: pointer; position: relative;
+    margin-left: 0.4rem; vertical-align: middle;
+  }
+
+  .tooltip-trigger:hover::after {
+    content: attr(data-tooltip); position: absolute; bottom: 125%; left: 50%;
+    transform: translateX(-50%); background: #0f172a; border: 1px solid var(--border-accent);
+    color: #fff; padding: 0.6rem 0.9rem; border-radius: 10px; font-size: 0.78rem;
+    width: 220px; white-space: normal; z-index: 100; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    pointer-events: none; line-height: 1.4;
+  }
+
+  .grid-2col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .grid-3col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+
+  .input-box {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px;
+    padding: 1.4rem; display: flex; flex-direction: column; gap: 0.8rem; transition: all 0.2s;
+  }
+
+  .input-box:focus-within, .input-box:hover { border-color: var(--border-accent); }
+
+  .input-label {
+    font-size: 0.88rem; font-weight: 600; color: var(--text-muted);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .val-badge { color: var(--accent-cyan); font-weight: 800; font-size: 1.05rem; }
+
+  .slider {
+    -webkit-appearance: none; appearance: none; width: 100%; height: 8px;
+    border-radius: 4px; background: rgba(255, 255, 255, 0.1); outline: none;
+  }
+
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 22px; height: 22px;
+    border-radius: 50%; background: var(--gradient-btn); cursor: pointer;
+    box-shadow: 0 0 15px rgba(0, 245, 212, 0.5);
+  }
+
+  .num-input {
+    background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border);
+    border-radius: 12px; padding: 0.75rem 1rem; color: #fff; font-size: 1rem; font-weight: 700; width: 100%;
+  }
+
+  /* Chip Cards */
+  .chip-card {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px;
+    padding: 1.4rem; cursor: pointer; display: flex; flex-direction: column; gap: 0.5rem;
+    transition: all 0.25s;
+  }
+
+  .chip-card:hover {
+    background: rgba(0, 245, 212, 0.06); border-color: var(--accent-cyan); transform: translateY(-3px);
+  }
+
+  .chip-card.selected {
+    border: 2px solid var(--accent-cyan); background: rgba(0, 245, 212, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 245, 212, 0.2);
+  }
+
+  .chip-icon { font-size: 1.8rem; color: var(--accent-cyan); }
+  .chip-title { font-size: 1.05rem; font-weight: 800; color: #fff; }
+  .chip-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
+
+  /* Navigation buttons */
+  .nav-row { display: flex; justify-content: space-between; margin-top: 0.5rem; }
+
+  .btn-nav {
+    background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border); color: var(--text-main);
+    padding: 0.85rem 1.7rem; border-radius: 16px; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; gap: 0.6rem; transition: all 0.2s;
+  }
+
+  .btn-nav.primary {
+    background: var(--gradient-btn); color: #080d1a; font-weight: 800; border: none;
+    box-shadow: 0 10px 25px rgba(0, 245, 212, 0.3);
+  }
+
+  .btn-nav.primary:hover { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(0, 245, 212, 0.5); }
+
+  /* Dashboard View (Step 5) */
+  .kpi-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+
+  .kpi-card {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 22px;
+    padding: 1.4rem; display: flex; flex-direction: column; gap: 0.4rem; position: relative; overflow: hidden;
+  }
+
+  .kpi-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--gradient-btn);
+  }
+
+  .kpi-title { font-size: 0.78rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; }
+  .kpi-val { font-size: 1.9rem; font-weight: 900; color: #fff; letter-spacing: -0.02em; }
+  .kpi-sub { font-size: 0.8rem; color: var(--accent-cyan); font-weight: 600; }
+
+  /* Timeline Canvas Area */
+  .chart-box {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px;
+    padding: 1.6rem; display: flex; flex-direction: column; gap: 1rem;
+  }
+
+  .timeline-bar-chart {
+    display: flex; align-items: flex-end; gap: 1.2rem; height: 170px; padding-top: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bar-col {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    height: 100%; justify-content: flex-end;
+  }
+
+  .bar-fill {
+    width: 100%; max-width: 42px; background: var(--gradient-btn); border-radius: 8px 8px 0 0;
+    transition: height 0.6s ease; box-shadow: 0 0 15px rgba(0, 245, 212, 0.3);
+  }
+
+  .bar-lbl { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; text-align: center; }
+
+  /* Milestone Inflation Reality Cards */
+  .milestone-cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+
+  .m-card {
+    background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border); border-radius: 18px;
+    padding: 1.2rem; display: flex; flex-direction: column; gap: 0.4rem;
+  }
+
+  .m-title { font-size: 0.85rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 0.4rem; }
+  .m-today { font-size: 0.8rem; color: var(--text-muted); }
+  .m-future { font-size: 1.25rem; font-weight: 800; color: var(--accent-gold); }
+
+  /* AI Assistant Box */
+  .ai-box {
+    background: rgba(15, 23, 42, 0.9); border: 1px solid var(--border-accent); border-radius: 24px;
+    padding: 1.6rem; display: flex; flex-direction: column; gap: 1rem;
+  }
+
+  .ai-feed {
+    background: rgba(8, 13, 26, 0.8); border: 1px solid var(--border); border-radius: 16px;
+    padding: 1.3rem; max-height: 200px; overflow-y: auto; font-size: 0.92rem; line-height: 1.6;
+  }
+
+  /* Comprehensive Responsive Media Queries */
+  @media (max-width: 900px) {
+    navbar {
+      padding: 0.8rem 1rem;
+      flex-direction: column;
+      gap: 0.8rem;
+      align-items: stretch;
+    }
+
+    .logo {
+      justify-content: center;
+    }
+
+    .steps-tracker {
+      overflow-x: auto;
+      padding-bottom: 0.3rem;
+      justify-content: flex-start;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .steps-tracker::-webkit-scrollbar {
+      display: none;
+    }
+
+    .step-pill {
+      flex-shrink: 0;
+      font-size: 0.78rem;
+      padding: 0.35rem 0.75rem;
+    }
+
+    .container {
+      margin: 1rem auto;
+      padding: 0 0.8rem;
+    }
+
+    .wizard-card {
+      padding: 1.4rem 1.1rem;
+      border-radius: 20px;
+      gap: 1.3rem;
+    }
+
+    .card-header-title {
+      font-size: 1.35rem;
+    }
+
+    .card-subtitle {
+      font-size: 0.85rem;
+    }
+
+    .grid-2col {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .grid-3col {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .kpi-grid-4 {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+    }
+
+    .milestone-cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+    }
+
+    .kpi-val {
+      font-size: 1.45rem;
+    }
+
+    .btn-nav {
+      padding: 0.75rem 1.2rem;
+      font-size: 0.88rem;
+    }
+
+    .ask-bar {
+      flex-direction: column;
+    }
+
+    .ask-input {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .kpi-grid-4 {
+      grid-template-columns: 1fr;
+    }
+
+    .milestone-cards-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .card-header-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .btn-tip-toggle {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .timeline-bar-chart {
+      gap: 0.4rem;
+      height: 140px;
+    }
+
+    .bar-col {
+      gap: 0.3rem;
+    }
+
+    .bar-lbl {
+      font-size: 0.68rem;
+    }
+
+    .nav-row {
+      flex-direction: column-reverse;
+      gap: 0.8rem;
+    }
+
+    .btn-nav {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .tooltip-trigger:hover::after {
+      width: 180px;
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (min-width: 901px) and (max-width: 1024px) {
+    .kpi-grid-4 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .milestone-cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+</head>
+<body>
+
+<navbar>
+  <div class="logo">
+    <div class="logo-icon">
+      <span class="material-symbols-outlined">explore</span>
+    </div>
+    <div>
+      <div class="logo-text">FutureSelf AI</div>
+      <div style="font-size:0.72rem; color:var(--text-muted); font-weight:500;">Your Friendly 30-Year Life & Wealth Companion</div>
+    </div>
+  </div>
+
+  <div class="steps-tracker">
+    <div class="step-pill active" id="pill-1" onclick="goToStep(1)"><div class="step-num">1</div>About You</div>
+    <div class="step-pill" id="pill-2" onclick="goToStep(2)"><div class="step-num">2</div>Dream Goals</div>
+    <div class="step-pill" id="pill-3" onclick="goToStep(3)"><div class="step-num">3</div>Family</div>
+    <div class="step-pill" id="pill-4" onclick="goToStep(4)"><div class="step-num">4</div>Money Mix</div>
+    <div class="step-pill" id="pill-5" onclick="goToStep(5)"><div class="step-num">5</div>Life Roadmap</div>
+  </div>
+</navbar>
+
+<div class="container">
+  <!-- STEP 1: About You -->
+  <div class="wizard-card active" id="step-1">
+    <div class="card-header-row">
+      <div>
+        <div class="card-header-title">
+          <span class="material-symbols-outlined" style="color:var(--accent-cyan); font-size:2.2rem;">waving_hand</span>
+          Step 1: About You & Your Starting Point
+        </div>
+        <div class="card-subtitle">Set your starting age, income, and monthly savings capacity.</div>
+      </div>
+      <button class="btn-tip-toggle" onclick="toggleTip('tip-1')">
+        <span class="material-symbols-outlined">lightbulb</span>
+        Why does this matter?
+        <span class="material-symbols-outlined">expand_more</span>
+      </button>
+    </div>
+
+    <!-- Collapsible Interactive Tip Drawer -->
+    <div class="collapsible-tip" id="tip-1">
+      💡 <strong>Why Starting Early is Your Financial Superpower:</strong><br>
+      Every dollar saved in your 20s has decades to grow automatically through <strong>Compound Interest</strong> (where your money earns money, and then that new money earns even more money!). Starting just 3 years earlier can add hundreds of thousands of dollars to your future wealth.
+    </div>
+
+    <div class="grid-2col">
+      <div class="input-box">
+        <div class="input-label">
+          <span>Your Current Age <span class="tooltip-trigger" data-tooltip="Your starting point for the 30-year lifecycle simulation.">ℹ</span></span>
+          <span class="val-badge" id="s1-age-badge">23 Years Old</span>
+        </div>
+        <input type="range" class="slider" id="s1-age" min="20" max="35" value="23" oninput="updateStep1()">
+      </div>
+
+      <div class="input-box">
+        <div class="input-label">
+          <span>Target Freedom Age <span class="tooltip-trigger" data-tooltip="The age at which your passive investments cover all living expenses so working becomes optional!">ℹ</span></span>
+          <span class="val-badge" id="s1-retire-badge">50 Years Old</span>
+        </div>
+        <input type="range" class="slider" id="s1-retire" min="40" max="65" value="50" oninput="updateStep1()">
+      </div>
+
+      <div class="input-box">
+        <div class="input-label">
+          <span>Monthly Income ($) <span class="tooltip-trigger" data-tooltip="Your current total monthly income after taxes.">ℹ</span></span>
+          <span class="val-badge" id="s1-inc-badge">$4,000/mo</span>
+        </div>
+        <input type="number" class="num-input" id="s1-inc" value="4000" onchange="updateStep1()">
+      </div>
+
+      <div class="input-box">
+        <div class="input-label">
+          <span>Monthly Savings / Investment ($) <span class="tooltip-trigger" data-tooltip="The amount you can consistently invest into your wealth engines each month.">ℹ</span></span>
+          <span class="val-badge" id="s1-sav-badge">$1,500/mo</span>
+        </div>
+        <input type="number" class="num-input" id="s1-sav" value="1500" onchange="updateStep1()">
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <div></div>
+      <button class="btn-nav primary" onclick="goToStep(2)">
+        Next: Dream Goals & Major Buys
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Dream Goals -->
+  <div class="wizard-card" id="step-2">
+    <div class="card-header-row">
+      <div>
+        <div class="card-header-title">
+          <span class="material-symbols-outlined" style="color:var(--accent-cyan); font-size:2.2rem;">directions_car</span>
+          Step 2: Your Big Life Purchases
+        </div>
+        <div class="card-subtitle">Tell us when you'd like to buy your vehicle, land, or dream home.</div>
+      </div>
+      <button class="btn-tip-toggle" onclick="toggleTip('tip-2')">
+        <span class="material-symbols-outlined">tips_and_updates</span>
+        Smart Choice Tip
+        <span class="material-symbols-outlined">expand_more</span>
+      </button>
+    </div>
+
+    <!-- Collapsible Interactive Tip Drawer -->
+    <div class="collapsible-tip" id="tip-2">
+      💡 <strong>Cars vs. Real Estate Strategy:</strong><br>
+      Vehicles depreciate (lose value over time), while <strong>Land & Homes usually gain value</strong>! Balancing your vehicle budget leaves more of your monthly wealth compounding inside real estate and stock funds.
+    </div>
+
+    <div class="grid-2col">
+      <div class="input-box">
+        <div class="input-label">
+          <span>Age to Buy Vehicle <span class="tooltip-trigger" data-tooltip="Target age to purchase your first car or vehicle.">ℹ</span></span>
+          <span class="val-badge" id="s2-carage-badge">Age 25</span>
+        </div>
+        <input type="range" class="slider" id="s2-carage" min="21" max="40" value="25" oninput="updateStep2()">
+        <div class="input-label" style="margin-top:0.5rem;"><span>Vehicle Price Today ($)</span><span class="val-badge" id="s2-carval-badge">$30,000</span></div>
+        <input type="number" class="num-input" id="s2-carval" value="30000" onchange="updateStep2()">
+      </div>
+
+      <div class="input-box">
+        <div class="input-label">
+          <span>Age to Buy Home / Land <span class="tooltip-trigger" data-tooltip="Target age to purchase land or a residential property.">ℹ</span></span>
+          <span class="val-badge" id="s2-homeage-badge">Age 28</span>
+        </div>
+        <input type="range" class="slider" id="s2-homeage" min="23" max="45" value="28" oninput="updateStep2()">
+        <div class="input-label" style="margin-top:0.5rem;"><span>Home/Land Price Today ($)</span><span class="val-badge" id="s2-homeval-badge">$350,000</span></div>
+        <input type="number" class="num-input" id="s2-homeval" value="350000" onchange="updateStep2()">
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-nav" onclick="goToStep(1)"><span class="material-symbols-outlined">arrow_back</span> Back</button>
+      <button class="btn-nav primary" onclick="goToStep(3)">Next: Family & Kids <span class="material-symbols-outlined">arrow_forward</span></button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Family & Kids -->
+  <div class="wizard-card" id="step-3">
+    <div class="card-header-row">
+      <div>
+        <div class="card-header-title">
+          <span class="material-symbols-outlined" style="color:var(--accent-cyan); font-size:2.2rem;">diversity_3</span>
+          Step 3: Marriage & Children's Future
+        </div>
+        <div class="card-subtitle">Plan your wedding timeline and education standards for your children.</div>
+      </div>
+      <button class="btn-tip-toggle" onclick="toggleTip('tip-3')">
+        <span class="material-symbols-outlined">school</span>
+        Education Inflation Tip
+        <span class="material-symbols-outlined">expand_more</span>
+      </button>
+    </div>
+
+    <!-- Collapsible Interactive Tip Drawer -->
+    <div class="collapsible-tip" id="tip-3">
+      💡 <strong>Understanding Education Inflation:</strong><br>
+      College tuition costs rise nearly <strong>twice as fast as everyday groceries (~9% to 12% yearly)</strong>! Selecting your target education standard early lets FutureSelf AI build the exact future price check buffer so you prepare without financial stress.
+    </div>
+
+    <div class="grid-2col">
+      <div class="input-box">
+        <div class="input-label"><span>Wedding Target Age</span><span class="val-badge" id="s3-morage-badge">Age 28</span></div>
+        <input type="range" class="slider" id="s3-morage" min="23" max="40" value="28" oninput="updateStep3()">
+        <div class="input-label" style="margin-top:0.5rem;"><span>Wedding Budget Today ($)</span><span class="val-badge" id="s3-morval-badge">$40,000</span></div>
+        <input type="number" class="num-input" id="s3-morval" value="40000" onchange="updateStep3()">
+      </div>
+
+      <div class="input-box">
+        <div class="input-label"><span>Number of Children Planned</span><span class="val-badge" id="s3-kids-badge">2 Kids</span></div>
+        <input type="range" class="slider" id="s3-kids" min="0" max="4" value="2" oninput="updateStep3()">
+      </div>
+    </div>
+
+    <div style="font-size:1rem; font-weight:700; color:#fff;">Target Schooling / Higher Education Standard</div>
+    <div class="grid-3col">
+      <div class="chip-card" id="edu-standard" onclick="selectEdu('standard')">
+        <span class="material-symbols-outlined chip-icon">school</span>
+        <div class="chip-title">Standard Local</div>
+        <div class="chip-desc">Local schools & state universities (~$40k/kid today).</div>
+      </div>
+
+      <div class="chip-card selected" id="edu-national" onclick="selectEdu('national')">
+        <span class="material-symbols-outlined chip-icon">military_tech</span>
+        <div class="chip-title">National Premier</div>
+        <div class="chip-desc">Top tier national universities (~$100k/kid today).</div>
+      </div>
+
+      <div class="chip-card" id="edu-global" onclick="selectEdu('global')">
+        <span class="material-symbols-outlined chip-icon">flight_takeoff</span>
+        <div class="chip-title">Global Overseas</div>
+        <div class="chip-desc">Ivy League / Global top universities (~$250k/kid today).</div>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-nav" onclick="goToStep(2)"><span class="material-symbols-outlined">arrow_back</span> Back</button>
+      <button class="btn-nav primary" onclick="goToStep(4)">Next: Money Investment Mix <span class="material-symbols-outlined">arrow_forward</span></button>
+    </div>
+  </div>
+
+  <!-- STEP 4: Portfolio & Asset Split -->
+  <div class="wizard-card" id="step-4">
+    <div class="card-header-row">
+      <div>
+        <div class="card-header-title">
+          <span class="material-symbols-outlined" style="color:var(--accent-cyan); font-size:2.2rem;">savings</span>
+          Step 4: How Your Money Grows (Investment Mix)
+        </div>
+        <div class="card-subtitle">Choose how to divide your monthly savings into different growth engines.</div>
+      </div>
+      <button class="btn-tip-toggle" onclick="toggleTip('tip-4')">
+        <span class="material-symbols-outlined">insights</span>
+        Investment Guide
+        <span class="material-symbols-outlined">expand_more</span>
+      </button>
+    </div>
+
+    <!-- Collapsible Interactive Tip Drawer -->
+    <div class="collapsible-tip" id="tip-4">
+      💡 <strong>How Your Investment Mix Works:</strong><br>
+      📈 <strong>Company Stocks</strong>: Fast long-term growth (~12% avg)<br>
+      🏡 <strong>Real Estate & Land</strong>: Steady property value gain + rental income (~10% avg)<br>
+      🥇 <strong>Gold & Safe Assets</strong>: Protects your wealth during market storms (~8% avg)<br>
+      ⚡ <strong>Crypto & Digital Assets</strong>: High risk / high reward bonus potential (~18% avg)
+    </div>
+
+    <div class="grid-2col">
+      <div class="input-box">
+        <div class="input-label">
+          <span>📈 Company Stocks & Shared Funds (%) <span class="tooltip-trigger" data-tooltip="Invests in stock indexes like S&P 500 for fast long-term wealth growth.">ℹ</span></span>
+          <span class="val-badge" id="s4-eq-badge">60%</span>
+        </div>
+        <input type="range" class="slider" id="s4-eq" min="0" max="100" value="60" oninput="updateStep4()">
+      </div>
+
+      <div class="input-box">
+        <div class="input-label">
+          <span>🏡 Real Estate & Land (%) <span class="tooltip-trigger" data-tooltip="Invests in land and property for appreciation and rental yield.">ℹ</span></span>
+          <span class="val-badge" id="s4-re-badge">15%</span>
+        </div>
+        <input type="range" class="slider" id="s4-re" min="0" max="100" value="15" oninput="updateStep4()">
+      </div>
+
+      <div class="input-box">
+        <div class="input-label">
+          <span>🥇 Gold & Safe Assets (%) <span class="tooltip-trigger" data-tooltip="Protects your capital against inflation and market crashes.">ℹ</span></span>
+          <span class="val-badge" id="s4-gold-badge">15%</span>
+        </div>
+        <input type="range" class="slider" id="s4-gold" min="0" max="100" value="15" oninput="updateStep4()">
+      </div>
+
+      <div class="input-box">
+        <div class="input-label">
+          <span>⚡ Digital Assets (Crypto) (%) <span class="tooltip-trigger" data-tooltip="High-upside digital assets (recommended 5-10% max allocation).">ℹ</span></span>
+          <span class="val-badge" id="s4-crypto-badge">10%</span>
+        </div>
+        <input type="range" class="slider" id="s4-crypto" min="0" max="100" value="10" oninput="updateStep4()">
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-nav" onclick="goToStep(3)"><span class="material-symbols-outlined">arrow_back</span> Back</button>
+      <button class="btn-nav primary" onclick="goToStep(5); generateMasterBlueprint();">
+        <span class="material-symbols-outlined">auto_awesome</span>
+        Build My 30-Year Life Roadmap
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 5: Master Consolidated 360° Life Roadmap -->
+  <div class="wizard-card" id="step-5">
+    <div class="card-header-row">
+      <div>
+        <div class="card-header-title">
+          <span class="material-symbols-outlined" style="color:var(--accent-cyan); font-size:2.2rem;">map</span>
+          Your 30-Year Life Roadmap & Freedom Plan
+        </div>
+        <div class="card-subtitle">Here is how your total wealth grows, what your goals will cost in the future, and your path to financial freedom!</div>
+      </div>
+      <button class="btn-tip-toggle" onclick="toggleTip('tip-5')">
+        <span class="material-symbols-outlined">stars</span>
+        What is Freedom Money?
+        <span class="material-symbols-outlined">expand_more</span>
+      </button>
+    </div>
+
+    <!-- Collapsible Interactive Tip Drawer -->
+    <div class="collapsible-tip" id="tip-5">
+      💡 <strong>What is Your "Freedom Bank Target"?</strong><br>
+      This is the total wealth cushion where <strong>monthly passive income from your investments pays all your living bills automatically</strong>. Once you reach this target, working for money becomes 100% optional!
+    </div>
+
+    <!-- Hero KPI Grid -->
+    <div class="kpi-grid-4">
+      <div class="kpi-card">
+        <div class="kpi-title">Total Wealth Built at Freedom Age</div>
+        <div class="kpi-val" id="m-networth">$3,248,479</div>
+        <div class="kpi-sub" id="m-fire-status">🎉 Financial Freedom Achievable!</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-title">Freedom Bank Target Needed</div>
+        <div class="kpi-val" id="m-freedom">$3,183,301</div>
+        <div class="kpi-sub" style="color:var(--accent-gold)">Target to make work optional</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-title">Monthly Passive Income</div>
+        <div class="kpi-val" id="m-passive">$10,828/mo</div>
+        <div class="kpi-sub">Monthly payout without working</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-title">Annual Wealth Growth Speed</div>
+        <div class="kpi-val" id="m-cagr">11.7%</div>
+        <div class="kpi-sub">Combined yearly return</div>
+      </div>
+    </div>
+
+    <!-- 30-Year Wealth Trajectory Chart -->
+    <div class="chart-box">
+      <div style="font-size:1.1rem; font-weight:800; color:#fff;">30-Year Wealth Trajectory (Age <span id="chart-start-age">23</span> → Age <span id="chart-end-age">50</span>)</div>
+      <div class="timeline-bar-chart" id="chart-bars">
+        <!-- Dynamically populated bars -->
+      </div>
+    </div>
+
+    <!-- Future Price Check Matrix -->
+    <div style="font-size:1.1rem; font-weight:800; color:#fff;">Future Price Check (What your goals will actually cost due to price rise)</div>
+    <div class="milestone-cards-grid">
+      <div class="m-card">
+        <div class="m-title"><span class="material-symbols-outlined" style="color:var(--accent-cyan)">directions_car</span> Vehicle Purchase</div>
+        <div class="m-today">Today: $<span id="mc-car-today">30,000</span></div>
+        <div class="m-future" id="mc-car-future">$33,391</div>
+      </div>
+
+      <div class="m-card">
+        <div class="m-title"><span class="material-symbols-outlined" style="color:var(--accent-cyan)">diversity_3</span> Wedding Expense</div>
+        <div class="m-today">Today: $<span id="mc-mor-today">40,000</span></div>
+        <div class="m-future" id="mc-mor-future">$52,278</div>
+      </div>
+
+      <div class="m-card">
+        <div class="m-title"><span class="material-symbols-outlined" style="color:var(--accent-cyan)">home</span> Home / Land</div>
+        <div class="m-today">Today: $<span id="mc-home-today">350,000</span></div>
+        <div class="m-future" id="mc-home-future">$457,436</div>
+      </div>
+
+      <div class="m-card">
+        <div class="m-title"><span class="material-symbols-outlined" style="color:var(--accent-cyan)">school</span> Kids Education</div>
+        <div class="m-today">Today: $<span id="mc-edu-today">200,000</span></div>
+        <div class="m-future" id="mc-edu-future">$1,724,616</div>
+      </div>
+    </div>
+
+    <!-- AI Co-Pilot Assistant -->
+    <div class="ai-box">
+      <div style="font-size:1.1rem; font-weight:800; color:#fff; display:flex; align-items:center; gap:0.6rem;">
+        <span class="material-symbols-outlined" style="color:var(--accent-cyan); font-size:1.6rem;">psychology</span>
+        FutureSelf AI Companion Chat
+      </div>
+      <div class="ai-feed" id="ai-feed">
+        ✨ <strong>Your Life Roadmap is Ready!</strong> Ask any question in plain simple language (e.g., "What if I save $200 more?" or "How can I retire 3 years earlier?").
+      </div>
+
+      <!-- Quick Action Pills for Features -->
+      <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:0.8rem;">
+        <button class="btn-tip-toggle" style="background:rgba(0,245,212,0.12); border-color:var(--accent-cyan);" onclick="sendQuickPrompt('Generate a visual of my dream home goal')">
+          🖼️ Show Dream Home Visual
+        </button>
+        <button class="btn-tip-toggle" style="background:rgba(0,245,212,0.12); border-color:var(--accent-cyan);" onclick="sendQuickPrompt('Save my current financial blueprint to database')">
+          💾 Save Blueprint to Database
+        </button>
+        <button class="btn-tip-toggle" style="background:rgba(0,245,212,0.12); border-color:var(--accent-cyan);" onclick="sendQuickPrompt('What are the live market benchmark rates and inflation right now?')">
+          📈 Live Market Rates
+        </button>
+        <button class="btn-tip-toggle" style="background:rgba(0,245,212,0.12); border-color:var(--accent-cyan);" onclick="sendQuickPrompt('Explain Roth IRA vs 401k tax rules simply')">
+          📚 Roth IRA vs 401k Guide
+        </button>
+      </div>
+
+      <div class="ask-bar" style="display:flex; gap:0.8rem;">
+        <input type="text" class="ask-input" id="user-query" placeholder="Ask your FutureSelf AI anything in plain everyday language..." style="flex:1; background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:14px; padding:0.85rem 1.2rem; color:#fff;" onkeydown="if(event.key==='Enter') sendQuery()">
+        <button class="btn-nav primary" onclick="sendQuery()">Ask AI</button>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-nav" onclick="goToStep(4)"><span class="material-symbols-outlined">tune</span> Adjust Inputs</button>
+      <div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+let selectedEduTier = "national";
+
+function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+
+function toggleTip(id) {
+  const tip = document.getElementById(id);
+  tip.classList.toggle('open');
+}
+
+function goToStep(stepNum) {
+  document.querySelectorAll('.wizard-card').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.step-pill').forEach(p => p.classList.remove('active'));
+
+  document.getElementById(`step-${stepNum}`).classList.add('active');
+  document.getElementById(`pill-${stepNum}`).classList.add('active');
+}
+
+function selectEdu(tier) {
+  selectedEduTier = tier;
+  document.querySelectorAll('#step-3 .chip-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById(`edu-${tier}`).classList.add('selected');
+}
+
+function updateStep1() {
+  const age = document.getElementById("s1-age").value;
+  const retire = document.getElementById("s1-retire").value;
+  const inc = document.getElementById("s1-inc").value;
+  const sav = document.getElementById("s1-sav").value;
+
+  document.getElementById("s1-age-badge").textContent = age + " Years Old";
+  document.getElementById("s1-retire-badge").textContent = retire + " Years Old";
+  document.getElementById("s1-inc-badge").textContent = "$" + fmt(inc) + "/mo";
+  document.getElementById("s1-sav-badge").textContent = "$" + fmt(sav) + "/mo";
+}
+
+function updateStep2() {
+  const carAge = document.getElementById("s2-carage").value;
+  const carVal = document.getElementById("s2-carval").value;
+  const homeAge = document.getElementById("s2-homeage").value;
+  const homeVal = document.getElementById("s2-homeval").value;
+
+  document.getElementById("s2-carage-badge").textContent = "Age " + carAge;
+  document.getElementById("s2-carval-badge").textContent = "$" + fmt(carVal);
+  document.getElementById("s2-homeage-badge").textContent = "Age " + homeAge;
+  document.getElementById("s2-homeval-badge").textContent = "$" + fmt(homeVal);
+}
+
+function updateStep3() {
+  const morAge = document.getElementById("s3-morage").value;
+  const morVal = document.getElementById("s3-morval").value;
+  const kids = document.getElementById("s3-kids").value;
+
+  document.getElementById("s3-morage-badge").textContent = "Age " + morAge;
+  document.getElementById("s3-morval-badge").textContent = "$" + fmt(morVal);
+  document.getElementById("s3-kids-badge").textContent = kids + " Kids";
+}
+
+function updateStep4() {
+  const eq = document.getElementById("s4-eq").value;
+  const re = document.getElementById("s4-re").value;
+  const gold = document.getElementById("s4-gold").value;
+  const crypto = document.getElementById("s4-crypto").value;
+
+  document.getElementById("s4-eq-badge").textContent = eq + "%";
+  document.getElementById("s4-re-badge").textContent = re + "%";
+  document.getElementById("s4-gold-badge").textContent = gold + "%";
+  document.getElementById("s4-crypto-badge").textContent = crypto + "%";
+}
+
+async function generateMasterBlueprint() {
+  const age = parseInt(document.getElementById("s1-age").value);
+  const retire = parseInt(document.getElementById("s1-retire").value);
+  const inc = parseFloat(document.getElementById("s1-inc").value);
+  const sav = parseFloat(document.getElementById("s1-sav").value);
+
+  const carAge = parseInt(document.getElementById("s2-carage").value);
+  const carVal = parseFloat(document.getElementById("s2-carval").value);
+  const homeAge = parseInt(document.getElementById("s2-homeage").value);
+  const homeVal = parseFloat(document.getElementById("s2-homeval").value);
+
+  const morAge = parseInt(document.getElementById("s3-morage").value);
+  const morVal = parseFloat(document.getElementById("s3-morval").value);
+  const kids = parseInt(document.getElementById("s3-kids").value);
+
+  const eq = parseFloat(document.getElementById("s4-eq").value);
+  const re = parseFloat(document.getElementById("s4-re").value);
+  const gold = parseFloat(document.getElementById("s4-gold").value);
+  const crypto = parseFloat(document.getElementById("s4-crypto").value);
+
+  document.getElementById("chart-start-age").textContent = age;
+  document.getElementById("chart-end-age").textContent = retire;
+
+  // Query Backend Agent
+  const promptText = `Calculate my 30-year life financial blueprint. Current age ${age}, retirement age ${retire}, monthly income $${inc}, monthly savings $${sav}, vehicle purchase age ${carAge} budget $${carVal}, home purchase age ${homeAge} budget $${homeVal}, marriage age ${morAge} budget $${morVal}, number of kids ${kids}, education tier ${selectedEduTier}, equity portfolio ${eq}%, real estate ${re}%, gold ${gold}%, crypto ${crypto}%. Explain in warm, friendly, plain everyday language.`;
+
+  const feed = document.getElementById("ai-feed");
+  feed.innerHTML = "⚡ <em>FutureSelf AI is simulating your 30-year life roadmap...</em>";
+
+  try {
+    const res = await fetch("/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: promptText })
+    });
+    const data = await res.json();
+    const parts = data.parts || [];
+    const text = parts.map(p => p.text || "").join("\n").trim();
+
+    if (text) {
+      feed.innerHTML = "🤖 <strong>FutureSelf AI Companion:</strong><br>" + text.replace(/\n/g, "<br>").replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+    }
+  } catch (e) {
+    feed.innerHTML = "⚠️ Error generating roadmap: " + e.message;
+  }
+
+  // Local Client Fallback Calculation for Crisp UI Graphs
+  const yrs = Math.max(1, retire - age);
+  const cagr = (eq * 0.12 + re * 0.10 + gold * 0.08 + crypto * 0.18) / 100;
+  
+  let networth = 0;
+  const barsContainer = document.getElementById("chart-bars");
+  barsContainer.innerHTML = "";
+
+  for (let i = 1; i <= yrs; i++) {
+    networth = (networth + sav * 12 * Math.pow(1.05, i - 1)) * (1 + cagr);
+    if (i % Math.ceil(yrs / 6) === 0 || i === yrs) {
+      const curAge = age + i;
+      const heightPct = Math.min(100, Math.max(15, (networth / 3000000) * 100));
+      
+      const col = document.createElement("div");
+      col.className = "bar-col";
+      col.innerHTML = `
+        <div class="bar-fill" style="height:${heightPct}%"></div>
+        <div class="bar-lbl">Age ${curAge}<br><strong>$${fmt(networth/1000)}k</strong></div>
+      `;
+      barsContainer.appendChild(col);
+    }
+  }
+
+  const freedomNeeded = ((inc - sav) * 12 * Math.pow(1.055, yrs)) / 0.04;
+
+  document.getElementById("m-networth").textContent = "$" + fmt(networth);
+  document.getElementById("m-freedom").textContent = "$" + fmt(freedomNeeded);
+  document.getElementById("m-passive").textContent = "$" + fmt((networth * 0.04) / 12) + "/mo";
+  document.getElementById("m-cagr").textContent = (cagr * 100).toFixed(1) + "%";
+
+  // Inflated Reality Cards
+  document.getElementById("mc-car-today").textContent = fmt(carVal);
+  document.getElementById("mc-car-future").textContent = "$" + fmt(carVal * Math.pow(1.055, Math.max(0, carAge - age)));
+
+  document.getElementById("mc-mor-today").textContent = fmt(morVal);
+  document.getElementById("mc-mor-future").textContent = "$" + fmt(morVal * Math.pow(1.055, Math.max(0, morAge - age)));
+
+  document.getElementById("mc-home-today").textContent = fmt(homeVal);
+  document.getElementById("mc-home-future").textContent = "$" + fmt(homeVal * Math.pow(1.055, Math.max(0, homeAge - age)));
+
+  const eduBase = selectedEduTier === 'standard' ? 40000 : (selectedEduTier === 'national' ? 100000 : 250000);
+  const eduInflated = kids * eduBase * Math.pow(1.09, 20);
+  document.getElementById("mc-edu-today").textContent = fmt(kids * eduBase);
+  document.getElementById("mc-edu-future").textContent = "$" + fmt(eduInflated);
+}
+
+function sendQuickPrompt(promptText) {
+  document.getElementById('user-query').value = promptText;
+  sendQuery();
+}
+
+async function sendQuery() {
+  const input = document.getElementById("user-query");
+  const query = input.value.trim();
+  if (!query) return;
+  input.value = "";
+
+  const feed = document.getElementById("ai-feed");
+  feed.innerHTML = "⚡ <em>Consulting FutureSelf AI Companion...</em>";
+
+  try {
+    const res = await fetch("/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: query + " Explain in simple everyday terms." })
+    });
+    const data = await res.json();
+    const parts = data.parts || [];
+    const text = parts.map(p => p.text || "").join("\n").trim();
+
+    if (text) {
+      feed.innerHTML = "🤖 <strong>FutureSelf AI Companion:</strong><br>" + text.replace(/\n/g, "<br>").replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+    }
+  } catch (e) {
+    feed.innerHTML = "⚠️ Error: " + e.message;
+  }
+}
+</script>
+</body>
+</html>
