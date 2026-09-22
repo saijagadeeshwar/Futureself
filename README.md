@@ -4,6 +4,11 @@
 
 ---
 
+### 📌 Bookmark Your Live Web App
+👉 **[Launch FutureSelf AI on Cloud Run](https://futureself-web-253558192043.us-east1.run.app)**
+
+---
+
 ## 🌟 Overview
 
 **FutureSelf AI** is an intelligent, human-centric life planning application designed to answer the fundamental question:
